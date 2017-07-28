@@ -1,6 +1,4 @@
 require('./../css/common.css');
-require('./../css/quick-panel.scss');
-
 require('./../img/20170726_164455_139.jpg');
 
 var hello = require('./hello');

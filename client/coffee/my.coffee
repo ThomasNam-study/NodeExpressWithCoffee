@@ -1,3 +1,5 @@
+require("../css/quick-panel.scss")
+
 document.write "나호출"
 
 myFunc = () ->

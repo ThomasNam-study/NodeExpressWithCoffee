@@ -1,7 +1,9 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
+const  path = require('path');
+const  webpack = require('webpack');
+const  HtmlWebpackPlugin = require('html-webpack-plugin');
+const  CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 
 module.exports = {
 	entry: {
@@ -16,10 +18,10 @@ module.exports = {
 		rules: [
 			{
 				test: /\.css$/,
-				use: [
-					'style-loader',
-					'css-loader'
-				]
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: "css-loader"
+				})
 			},
 			{
 				test: /\.js$/,
@@ -38,11 +40,16 @@ module.exports = {
 			{
 				test: /\.coffee$/,
 				use: [ 'coffee-loader' ]
-			},
+			}
+			,
 			{
 				test: /\.scss$/,
-				use: ["style-loader", "css-loader", "sass-loader"]
-			},
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: ["css-loader", "sass-loader"]
+				})
+			}
+			,
 			{
 				test: /\.(png|svg|jpg|gif)$/,
 				use: [
@@ -54,6 +61,7 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin('public/dev'),
 		new HtmlWebpackPlugin({title:'Output Management'}),
+		new ExtractTextPlugin("styles.css")
 
 	]
 };
